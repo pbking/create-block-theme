@@ -1,4 +1,4 @@
-import { render } from '@wordpress/element';
+import { createRoot } from '@wordpress/element';
 import ManageFonts from './manage-fonts';
 import GoogleFonts from './google-fonts';
 import LocalFonts from './local-fonts';
@@ -34,7 +34,9 @@ function App() {
 window.addEventListener(
 	'load',
 	function () {
-		render( <App />, document.querySelector( '#create-block-theme-app' ) );
+		const rootElement = document.getElementById( 'create-block-theme-app' );
+		const root = createRoot( rootElement );
+		root.render( <App /> );
 	},
 	false
 );
