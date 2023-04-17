@@ -10,6 +10,14 @@ function augment_resolver_with_utilities() {
 
 	class MY_Theme_JSON_Resolver extends WP_Theme_JSON_Resolver {
 
+
+		public static function get_resolver_class () {
+			if ( class_exists( 'WP_Theme_JSON_Resolver_Gutenberg' ) ) {
+				return 'WP_Theme_JSON_Resolver_Gutenberg';
+			}
+			return 'WP_Theme_JSON_Resolver';
+		}
+
 		public static function get_custom_user_data() {
 			if ( class_exists( 'WP_Theme_JSON_Resolver_Gutenberg' ) ) {
 				return WP_Theme_JSON_Resolver_Gutenberg::get_user_data();

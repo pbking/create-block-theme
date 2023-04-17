@@ -2,7 +2,7 @@
 
 class Theme_Edit {
 
-	public static function register_theme_edit_endpoint() {
+	public static function register_endpoints() {
 
 		register_rest_route(
 			'create-block-theme/v1',
@@ -10,6 +10,7 @@ class Theme_Edit {
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( 'Theme_Edit', 'get_theme_data' ),
+
 				'permission_callback' => function () {
 					return true; //current_user_can( 'edit_theme_options' );
 				},
@@ -73,7 +74,6 @@ class Theme_Edit {
 		$user_json = $theme->get_data();
 		return $user_json;
 	}
-
 
 }
 

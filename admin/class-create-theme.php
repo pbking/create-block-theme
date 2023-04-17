@@ -14,6 +14,7 @@ require_once( __DIR__ . '/create-theme/theme-readme.php' );
 require_once( __DIR__ . '/create-theme/theme-form.php' );
 require_once( __DIR__ . '/create-theme/form-messages.php' );
 require_once( __DIR__ . '/create-theme/theme-edit.php' );
+require_once( __DIR__ . '/create-theme/theme-variations.php' );
 
 /**
  * The admin-specific functionality of the plugin.
@@ -32,7 +33,8 @@ class Create_Block_Theme_Admin {
 		add_action( 'admin_init', array( $this, 'blockbase_save_theme' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'create_block_theme_enqueue' ) );
 		add_action( 'rest_api_init', array( $this, 'register_theme_export' ) );
-		add_action( 'rest_api_init', array( 'Theme_Edit', 'register_theme_edit_endpoint' ) );
+		add_action( 'rest_api_init', array( 'Theme_Edit', 'register_endpoints' ) );
+		add_action( 'rest_api_init', array( 'Theme_Variations', 'register_endpoints' ) );
 	}
 
 	function create_block_theme_enqueue() {
