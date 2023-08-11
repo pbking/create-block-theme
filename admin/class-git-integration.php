@@ -1,5 +1,6 @@
 <?php
 
+require_once( __DIR__ . '/class-react-app.php' );
 require_once( dirname( __DIR__ ) . '/includes/class-create-block-theme-settings.php' );
 
 class Git_Integration_Admin {
@@ -16,8 +17,31 @@ class Git_Integration_Admin {
 		}
 		$menu_title = _x( 'Create Block Theme: Git Utilities', 'UI String', 'create-block-theme' );
 		$page_title = $menu_title;
-		add_menu_page( $page_title, $menu_title, 'edit_theme_options', 'themes-git-integration', array( $this, 'git_settings_page' ) );
+		add_menu_page( $page_title, $menu_title, 'edit_theme_options', 'themes-git-integration', array( $this, 'git_settings_page_react' ) );
 	}
+
+    public function git_settings_page_react() {
+        React_App::bootstrap();
+
+        $nonce = wp_create_nonce( 'create_block_theme' );
+        $isBlockTheme = wp_is_block_theme();
+		$themeName = wp_get_theme()->get( 'Name' );
+		$themeSlug = wp_get_theme()->get( 'TextDomain' );
+
+        $settings = $this->plugin_settings->get_settings();
+
+		$metadata = json_encode(array(
+            'nonce' => $nonce,
+            'themeName' => $themeName, 
+            'themeSlug' => $themeSlug, 
+            'isBlockTheme' => $isBlockTheme,
+            'connected_repos' => $settings['connected_repos']
+        ));
+		?>
+		<input id="nonce" type="hidden" value="<?php echo $nonce; ?>" />
+		<div id="create-block-theme-app" data-metadata='<?php echo $metadata; ?>'></div>
+		<?php
+    }
 
 	public function git_settings_page() {
 		// Add your settings page content here
