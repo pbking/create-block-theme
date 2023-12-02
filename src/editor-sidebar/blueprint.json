@@ -1,0 +1,14 @@
+{
+	"landingPage": "/wp-admin/themes.php?page=create-block-theme",
+	"preferredVersions": {
+		"php": "8.1",
+		"wp": "6.4"
+	},
+	"steps": [
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		}
+	]
+}
